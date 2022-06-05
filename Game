@@ -1,0 +1,1185 @@
+//
+// Created by logan on 3/4/2022.
+//
+
+#ifndef YAHTZEE_GRAPHICS_H
+#define YAHTZEE_GRAPHICS_H
+
+#include <string>
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <conio.h>
+
+using namespace std;
+
+class graphics{
+private:
+    string* myBoard = new string[6];
+    string* mySecondBoard = new string[7];
+public:
+    graphics(){
+        myBoard[0] = " 1 ";
+        myBoard[1] = " 2 ";
+        myBoard[2] = " 3 ";
+        myBoard[3] = " 4 ";
+        myBoard[4] = " 5 ";
+        myBoard[5] = " 6 ";
+        mySecondBoard[0] = "3oK";
+        mySecondBoard[1] = "4oK";
+        mySecondBoard[2] = "FuH";
+        mySecondBoard[3] = "SmS";
+        mySecondBoard[4] = "LaS";
+        mySecondBoard[5] = "CHa";
+        mySecondBoard[6] = "YAHTZEE";
+    }
+    void addNumber(){
+
+        string num = "0";
+        string enter;
+        string decide = "0";
+        string Hold = "0";
+        string otherDecide = "0";
+        string holdDecide = "0";
+
+        int myScore = 0;
+        int upperScore = 0;
+
+        int rollNumber = 0;
+        int hold1 = 0;
+        int hold2 = 0;
+        int hold3 = 0;
+        int hold4 = 0;
+        int hold5 = 0;
+
+        srand(unsigned (time(0)));
+
+        int die1;
+        int die2;
+        int die3;
+        int die4;
+        int die5;
+
+        print();
+        cout << endl;
+        cout << endl;
+
+
+        while(myBoard[0] != " * " || myBoard[1] != " * " || myBoard[2] != " * " || myBoard[3] != " * " || myBoard[4] != " * " || myBoard[5] != " * " || mySecondBoard[0] != " * " || mySecondBoard[1] != " * " || mySecondBoard[2] != " * " || mySecondBoard[3] != " * " || mySecondBoard[4] != " * " || mySecondBoard[5] != " * " || (mySecondBoard[6] != " * " && mySecondBoard[6] != " - ")) {
+
+            while(rollNumber < 3) {
+
+                cout << "Hit Enter to roll the Dice";
+                cout << endl;
+                cout << ">";
+                getline(cin, enter);
+                cout << endl;
+
+                if(hold1 == 0) {
+                    die1 = (rand() % 6) + 1;
+                }
+                if(hold2 == 0) {
+                    die2 = (rand() % 6) + 1;
+                }
+                if(hold3 == 0) {
+                    die3 = (rand() % 6) + 1;
+                }
+                if(hold4 == 0) {
+                    die4 = (rand() % 6) + 1;
+                }
+                if(hold5 == 0) {
+                    die5 = (rand() % 6) + 1;
+                }
+
+
+                cout << "Your Numbers: ";
+                cout << endl;
+                cout << "A" << " + " << "B" << " + " << "C" << " + " << "D" << " + " << "E";
+                cout << endl;
+                cout << die1 << " + " << die2 << " + " << die3 << " + " << die4 << " + " << die5;
+                cout << endl;
+                cout << endl;
+
+                if(rollNumber < 2) {
+
+                    cout << "Do you wish to hold any?(Y/N)";
+                    cout << endl;
+
+                    while (decide != "Y" && decide != "N") {
+                        cout << ">";
+                        getline(cin, decide);
+                        cout << endl;
+                    }
+
+                }
+
+                if (decide == "Y") {
+                    int myNumber = 0;
+                    int k;
+                    while(myNumber == 0) {
+                        cout << "Which ones do you want to hold? (Type in a letter)";
+                        cout << endl;
+                        cout << ">";
+                        getline(cin, Hold);
+                        cout << endl;
+                        for(k = 0; k < Hold.size(); ++k){
+                            if(Hold[k] == 'a' ||
+                               Hold[k] == 'A' ||
+                               Hold[k] == 'b' ||
+                               Hold[k] == 'B' ||
+                               Hold[k] == 'c' ||
+                               Hold[k] == 'C' ||
+                               Hold[k] == 'd' ||
+                               Hold[k] == 'D' ||
+                               Hold[k] == 'e' ||
+                               Hold[k] == 'E'){
+                                ++myNumber;
+                            }
+                        }
+                    }
+
+                    int j;
+
+                    for (j = 0; j < Hold.size(); ++j) {
+                        if (Hold[j] == 'A' || Hold[j] == 'a') {
+                            hold1 = die1;
+                            cout << endl;
+                        }
+                        if (Hold[j] == 'B' || Hold[j] == 'b') {
+                            hold2 = die2;
+                            cout << endl;
+                        }
+                        if (Hold[j] == 'C' || Hold[j] == 'c') {
+                            hold3 = die3;
+                            cout << endl;
+                        }
+                        if (Hold[j] == 'D' || Hold[j] == 'd') {
+                            hold4 = die4;
+                            cout << endl;
+                        }
+                        if (Hold[j] == 'E' || Hold[j] == 'e') {
+                            hold5 = die5;
+                            cout << endl;
+                        }
+                    }
+                }
+
+                if(hold1 != 0 || hold2 != 0 || hold3 != 0 || hold4 != 0 || hold5 != 0) {
+
+                    if (rollNumber == 1) {
+
+                        if (decide == "N") {
+                            cout << "Would you like to release any?(Y/N)";
+                            cout << endl;
+
+                            while (holdDecide != "Y" && holdDecide != "y" && holdDecide != "N" && holdDecide != "n") {
+                                cout << ">";
+                                getline(cin, holdDecide);
+                                cout << endl;
+                            }
+
+                            if (holdDecide == "Y" || holdDecide == "y") {
+                                cout << "Which ones do you want to hold? (Type in a letter)";
+                                cout << endl;
+                                cout << ">";
+                                getline(cin, Hold);
+                                cout << endl;
+
+                                int j;
+
+                                for (j = 0; j < Hold.size(); ++j) {
+                                    if (Hold[j] == 'A' || Hold[j] == 'a') {
+                                        hold1 = 0;
+                                        cout << endl;
+                                    }
+                                    if (Hold[j] == 'B' || Hold[j] == 'b') {
+                                        hold2 = 0;
+                                        cout << endl;
+                                    }
+                                    if (Hold[j] == 'C' || Hold[j] == 'c') {
+                                        hold3 = 0;
+                                        cout << endl;
+                                    }
+                                    if (Hold[j] == 'D' || Hold[j] == 'd') {
+                                        hold4 = 0;
+                                        cout << endl;
+                                    }
+                                    if (Hold[j] == 'E' || Hold[j] == 'e') {
+                                        hold5 = 0;
+                                        cout << endl;
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+
+                ++rollNumber;
+                if(rollNumber < 3) {
+                    while (otherDecide != "Y" && otherDecide != "N") {
+                        cout << "Do you wish to pick a slot?(Y/N)";
+                        cout << endl;
+                        cout << ">";
+                        getline(cin, otherDecide);
+                        cout << endl;
+                    }
+                }
+
+                if(otherDecide == "Y"){
+                    rollNumber = 3;
+                }
+
+                otherDecide = "0";
+                decide = "0";
+
+            }
+
+            rollNumber = 0;
+            hold1 = 0;
+            hold2 = 0;
+            hold3 = 0;
+            hold4 = 0;
+            hold5 = 0;
+
+
+           chooseSlot(die1,die2,die3,die4,die5,myScore,upperScore);
+
+           cout << "This is your score: ";
+           cout << myScore;
+           cout << endl;
+           cout << ">";
+           getline(cin,enter);
+
+           print();
+           cout << endl;
+
+
+           num = "0";
+        }
+
+        cout << endl;
+        cout << "FINAL SCORE: ";
+        cout << myScore;
+        cout << endl;
+        cout << ">";
+        getline(cin,enter);
+
+
+    }
+    void chooseSlot(int die1, int die2, int die3, int die4, int die5, int& myScore, int& upperScore){
+        string num = "0";
+        string enter;
+        string decide = "0";
+        bool bonus = false;
+
+        if(die1 == die2 && die1 == die3 && die1 == die4 && die1 == die5){
+            cout << "YAHTZEE!";
+            cout << endl;
+            cout << ">";
+            getline(cin,enter);
+
+            while(decide != "Y" && decide != "N") {
+                cout << "Do you wish to use the Yahtzee slot?(Y/N)";
+                cout << endl;
+                cout << ">";
+                getline(cin,decide);
+            }
+
+            if(decide == "Y"){
+
+                if(mySecondBoard[6] != " * ") {
+                    mySecondBoard[6] = " * ";
+                    myScore = myScore + 50;
+                    return;
+                }else{
+                    myScore = myScore + 100;
+                    return;
+                }
+            }else if(decide == "N"){
+                while(num != "1" && num != "2" && num != "3" && num != "4" && num != "5" && num != "6" &&
+                      num != " 3oK" && num != "4oK" && num != "FuH" && num != "SmS" && num != "LaS" && num != "CHa"){
+                    cout << "Choose a slot";
+                    cout << endl;
+                    cout << ">";
+                    getline(cin,num);
+                }
+            }
+
+        }else {
+            while (num != "1" && num != "2" && num != "3" && num != "4" && num != "5" && num != "6" && num != "3oK" &&
+                   num != "4oK" && num != "FuH" && num != "SmS" && num != "LaS" && num != "CHa" && num != "Yahtzee") {
+                cout << "Choose a slot";
+                cout << endl;
+                cout << ">";
+                getline(cin, num);
+                cout << endl;
+            }
+        }
+
+        if(myBoard[0] != " * ") {
+            if (num == "1") {
+                myBoard[0] = " * ";
+                if (die1 == 1) {
+                    myScore = myScore + 1;
+                    upperScore = upperScore + 1;
+                }
+                if (die2 == 1) {
+                    myScore = myScore + 1;
+                    upperScore = upperScore + 1;
+                }
+                if (die3 == 1) {
+                    myScore = myScore + 1;
+                    upperScore = upperScore + 1;
+                }
+                if (die4 == 1) {
+                    myScore = myScore + 1;
+                    upperScore = upperScore + 1;
+                }
+                if (die5 == 1) {
+                    myScore = myScore + 1;
+                    upperScore = upperScore + 1;
+                }
+            }
+        }else if(myBoard[0] == " * "){
+            if(num == "1"){
+                cout << "Already used. Try again";
+                getline(cin,enter);
+                chooseSlot(die1,die2,die3,die4,die5,myScore,upperScore);
+            }
+        }
+        if(myBoard[1] != " * ") {
+            if (num == "2") {
+                myBoard[1] = " * ";
+                if (die1 == 2) {
+                    myScore = myScore + 2;
+                    upperScore = upperScore + 2;
+                }
+                if (die2 == 2) {
+                    myScore = myScore + 2;
+                    upperScore = upperScore + 2;
+                }
+                if (die3 == 2) {
+                    myScore = myScore + 2;
+                    upperScore = upperScore + 2;
+                }
+                if (die4 == 2) {
+                    myScore = myScore + 2;
+                    upperScore = upperScore + 2;
+                }
+                if (die5 == 2) {
+                    myScore = myScore + 2;
+                    upperScore = upperScore + 2;
+                }
+            }
+        }else if(myBoard[1] == " * "){
+            if(num == "2"){
+                cout << "Already used. Try again";
+                getline(cin,enter);
+                chooseSlot(die1,die2,die3,die4,die5,myScore,upperScore);
+            }
+        }
+        if(myBoard[2] != " * ") {
+            if (num == "3") {
+                myBoard[2] = " * ";
+                if (die1 == 3) {
+                    myScore = myScore + 3;
+                    upperScore = upperScore + 3;
+                }
+                if (die2 == 3) {
+                    myScore = myScore + 3;
+                    upperScore = upperScore + 3;
+                }
+                if (die3 == 3) {
+                    myScore = myScore + 3;
+                    upperScore = upperScore + 3;
+                }
+                if (die4 == 3) {
+                    myScore = myScore + 3;
+                    upperScore = upperScore + 3;
+                }
+                if (die5 == 3) {
+                    myScore = myScore + 3;
+                    upperScore = upperScore + 3;
+                }
+            }
+        }else if(myBoard[2] == " * "){
+            if(num == "3"){
+                cout << "Already used. Try again";
+                getline(cin,enter);
+                chooseSlot(die1,die2,die3,die4,die5,myScore,upperScore);
+            }
+        }
+        if(myBoard[3] != " * ") {
+            if (num == "4") {
+                myBoard[3] = " * ";
+                if (die1 == 4) {
+                    myScore = myScore + 4;
+                    upperScore = upperScore + 4;
+                }
+                if (die2 == 4) {
+                    myScore = myScore + 4;
+                    upperScore = upperScore + 4;
+                }
+                if (die3 == 4) {
+                    myScore = myScore + 4;
+                    upperScore = upperScore + 4;
+                }
+                if (die4 == 4) {
+                    myScore = myScore + 4;
+                    upperScore = upperScore + 4;
+                }
+                if (die5 == 4) {
+                    myScore = myScore + 4;
+                    upperScore = upperScore + 4;
+                }
+            }
+        }else if(myBoard[3] == " * "){
+            if(num == "4"){
+                cout << "Already used. Try again";
+                getline(cin,enter);
+                chooseSlot(die1,die2,die3,die4,die5,myScore,upperScore);
+            }
+        }
+        if(myBoard[4] != " * ") {
+            if (num == "5") {
+                myBoard[4] = " * ";
+                if (die1 == 5) {
+                    myScore = myScore + 5;
+                    upperScore = upperScore + 5;
+                }
+                if (die2 == 5) {
+                    myScore = myScore + 5;
+                    upperScore = upperScore + 5;
+                }
+                if (die3 == 5) {
+                    myScore = myScore + 5;
+                    upperScore = upperScore + 5;
+                }
+                if (die4 == 5) {
+                    myScore = myScore + 5;
+                    upperScore = upperScore + 5;
+                }
+                if (die5 == 5) {
+                    myScore = myScore + 5;
+                    upperScore = upperScore + 5;
+                }
+            }
+        }else if(myBoard[4] == " * "){
+            if(num == "5"){
+                cout << "Already used. Try again";
+                getline(cin,enter);
+                chooseSlot(die1,die2,die3,die4,die5,myScore,upperScore);
+            }
+        }
+        if(myBoard[5] != " * ") {
+            if (num == "6") {
+                myBoard[5] = " * ";
+                if (die1 == 6) {
+                    myScore = myScore + 6;
+                    upperScore = upperScore + 6;
+                }
+                if (die2 == 6) {
+                    myScore = myScore + 6;
+                    upperScore = upperScore + 6;
+                }
+                if (die3 == 6) {
+                    myScore = myScore + 6;
+                    upperScore = upperScore + 6;
+                }
+                if (die4 == 6) {
+                    myScore = myScore + 6;
+                    upperScore = upperScore + 6;
+                }
+                if (die5 == 6) {
+                    myScore = myScore + 6;
+                    upperScore = upperScore + 6;
+                }
+            }
+        }else if(myBoard[5] == " * "){
+            if(num == "6"){
+                cout << "Already used. Try again";
+                getline(cin,enter);
+                chooseSlot(die1,die2,die3,die4,die5,myScore,upperScore);
+            }
+        }
+        if(mySecondBoard[0] != " * ") {
+            if (num == "3oK") {
+                mySecondBoard[0] = " * ";
+                int scoreGain = 0;
+                int numberCount = 0;
+
+                if (die1 == die2 || die1 == die3 || die1 == die4 || die1 == die5) {
+                    numberCount = numberCount + 1;
+                    scoreGain = scoreGain + die1;
+
+                    if (die2 == die1) {
+                        numberCount = numberCount + 1;
+                        scoreGain = scoreGain + die2;
+                    }
+                    if (die3 == die1) {
+                        numberCount = numberCount + 1;
+                        scoreGain = scoreGain + die3;
+                    }
+                    if (die4 == die1) {
+                        numberCount = numberCount + 1;
+                        scoreGain = scoreGain + die4;
+                    }
+                    if (die5 == die1) {
+                        numberCount = numberCount + 1;
+                        scoreGain = scoreGain + die5;
+                    }
+
+                }else if (die2 == die3 || die2 == die4 || die2 == die5 || die2 == die1) {
+                    numberCount = numberCount + 1;
+                    scoreGain = scoreGain + die2;
+
+                    if (die1 == die2) {
+                        numberCount = numberCount + 1;
+                        scoreGain = scoreGain + die1;
+                    }
+                    if (die3 == die2) {
+                        numberCount = numberCount + 1;
+                        scoreGain = scoreGain + die3;
+                    }
+                    if (die4 == die2) {
+                        numberCount = numberCount + 1;
+                        scoreGain = scoreGain + die4;
+                    }
+                    if (die5 == die2) {
+                        numberCount = numberCount + 1;
+                        scoreGain = scoreGain + die5;
+                    }
+                }else if (die3 == die4 || die3 == die5 || die3 == die1 || die3 == die2) {
+                    numberCount = numberCount + 1;
+                    scoreGain = scoreGain + die3;
+
+                    if (die2 == die3) {
+                        numberCount = numberCount + 1;
+                        scoreGain = scoreGain + die2;
+                    }
+                    if (die3 == die1) {
+                        numberCount = numberCount + 1;
+                        scoreGain = scoreGain + die1;
+                    }
+                    if (die4 == die3) {
+                        numberCount = numberCount + 1;
+                        scoreGain = scoreGain + die4;
+                    }
+                    if (die5 == die3) {
+                        numberCount = numberCount + 1;
+                        scoreGain = scoreGain + die5;
+                    }
+                }
+
+                if (numberCount >= 3) {
+                    myScore = myScore + scoreGain;
+                }
+            }
+        }else if(mySecondBoard[0] == " * "){
+            if(num == "3oK"){
+                cout << "Already used. Try again";
+                getline(cin,enter);
+                chooseSlot(die1,die2,die3,die4,die5,myScore,upperScore);
+            }
+        }
+        if(mySecondBoard[1] != " * ") {
+            if (num == "4oK") {
+                mySecondBoard[1] = " * ";
+                int scoreGain = 0;
+                int numberCount = 0;
+
+                if (die1 == die2 || die1 == die3 || die1 == die4 || die1 == die5) {
+                    numberCount = numberCount + 1;
+                    scoreGain = scoreGain + die1;
+
+                    if (die2 == die1) {
+                        numberCount = numberCount + 1;
+                        scoreGain = scoreGain + die2;
+                    }
+                    if (die3 == die1) {
+                        numberCount = numberCount + 1;
+                        scoreGain = scoreGain + die3;
+                    }
+                    if (die4 == die1) {
+                        numberCount = numberCount + 1;
+                        scoreGain = scoreGain + die4;
+                    }
+                    if (die5 == die1) {
+                        numberCount = numberCount + 1;
+                        scoreGain = scoreGain + die5;
+                    }
+
+                }else if (die2 == die3 || die2 == die4 || die2 == die5 || die2 == die1) {
+                    numberCount = numberCount + 1;
+                    scoreGain = scoreGain + die2;
+
+                    if (die1 == die2) {
+                        numberCount = numberCount + 1;
+                        scoreGain = scoreGain + die1;
+                    }
+                    if (die3 == die2) {
+                        numberCount = numberCount + 1;
+                        scoreGain = scoreGain + die3;
+                    }
+                    if (die4 == die2) {
+                        numberCount = numberCount + 1;
+                        scoreGain = scoreGain + die4;
+                    }
+                    if (die5 == die2) {
+                        numberCount = numberCount + 1;
+                        scoreGain = scoreGain + die5;
+                    }
+                }
+
+                if (numberCount >= 4) {
+                    myScore = myScore + scoreGain;
+                }
+
+            }
+        }else if(mySecondBoard[1] == " * "){
+            if(num == "4oK"){
+                cout << "Already used. Try again";
+                getline(cin,enter);
+                chooseSlot(die1,die2,die3,die4,die5,myScore,upperScore);
+            }
+        }
+        if(mySecondBoard[2] != " * "){
+            if(num == "FuH"){
+            mySecondBoard[2] = " * ";
+
+            int one = 0;
+            int two = 0;
+            int three = 0;
+            int four = 0;
+            int five = 0;
+            int six = 0;
+
+            if(die1 == 1){
+                one = one + 1;
+            }
+            if(die2 == 1){
+                one = one + 1;
+            }
+            if(die3 == 1){
+                one = one + 1;
+            }
+            if(die4 == 1){
+                one = one + 1;
+            }
+            if(die5 == 1){
+                one = one + 1;
+            }
+
+            if(die1 == 2){
+                two = two + 1;
+            }
+            if(die2 == 2){
+                two = two + 1;
+            }
+            if(die3 == 2){
+                two = two + 1;
+            }
+            if(die4 == 2){
+                two = two + 1;
+            }
+            if(die5 == 2){
+                two = two + 1;
+            }
+
+            if(die1 == 3){
+                three = three + 1;
+            }
+            if(die2 == 3){
+                three = three + 1;
+            }
+            if(die3 == 3){
+                three = three + 1;
+            }
+            if(die4 == 3){
+                three = three + 1;
+            }
+            if(die5 == 3){
+                three = three + 1;
+            }
+
+            if(die1 == 4){
+                ++four;
+            }
+            if(die2 == 4){
+                ++four;
+            }
+            if(die3 == 4){
+                ++four;
+            }
+            if(die4 == 4){
+                ++four;
+            }
+            if(die5 == 4){
+                ++four;
+            }
+
+            if(die1 == 5){
+                ++five;
+            }
+            if(die2 == 5){
+                ++five;
+            }
+            if(die3 == 5){
+                ++five;
+            }
+            if(die4 == 5){
+                ++five;
+            }
+            if(die5 == 5){
+                ++five;
+            }
+
+            if(die1 == 6){
+                ++six;
+            }
+            if(die2 == 6){
+                ++six;
+            }
+            if(die3 == 6){
+                ++six;
+            }
+            if(die4 == 6){
+                ++six;
+            }
+            if(die5 == 6){
+                ++six;
+            }
+
+
+            if(one == 3){
+                if(two == 2){
+                    myScore = myScore + 25;
+                }
+                if(three == 2){
+                    myScore = myScore + 25;
+                }
+                if(four == 2){
+                    myScore = myScore + 25;
+                }
+                if(five == 2){
+                    myScore = myScore + 25;
+                }
+                if(six == 2){
+                    myScore = myScore + 25;
+                }
+            }else if(two == 3){
+                if(one == 2){
+                    myScore = myScore + 25;
+                }
+                if(three == 2){
+                    myScore = myScore + 25;
+                }
+                if(four == 2){
+                    myScore = myScore + 25;
+                }
+                if(five == 2){
+                    myScore = myScore + 25;
+                }
+                if(six == 2){
+                    myScore = myScore + 25;
+                }
+            }else if(three == 3){
+                if(two == 2){
+                    myScore = myScore + 25;
+                }
+                if(one == 2){
+                    myScore = myScore + 25;
+                }
+                if(four == 2){
+                    myScore = myScore + 25;
+                }
+                if(five == 2){
+                    myScore = myScore + 25;
+                }
+                if(six == 2){
+                    myScore = myScore + 25;
+                }
+            }else if(four == 3){
+                if(two == 2){
+                    myScore = myScore + 25;
+                }
+                if(three == 2){
+                    myScore = myScore + 25;
+                }
+                if(one == 2){
+                    myScore = myScore + 25;
+                }
+                if(five == 2){
+                    myScore = myScore + 25;
+                }
+                if(six == 2){
+                    myScore = myScore + 25;
+                }
+            }else if(five == 3){
+                if(two == 2){
+                    myScore = myScore + 25;
+                }
+                if(three == 2){
+                    myScore = myScore + 25;
+                }
+                if(four == 2){
+                    myScore = myScore + 25;
+                }
+                if(one == 2){
+                    myScore = myScore + 25;
+                }
+                if(six == 2){
+                    myScore = myScore + 25;
+                }
+            }else if(six == 3){
+                if(two == 2){
+                    myScore = myScore + 25;
+                }
+                if(three == 2){
+                    myScore = myScore + 25;
+                }
+                if(four == 2){
+                    myScore = myScore + 25;
+                }
+                if(five == 2){
+                    myScore = myScore + 25;
+                }
+                if(one == 2){
+                    myScore = myScore + 25;
+                }
+            }
+
+
+
+        }
+        }else if(mySecondBoard[2] == " * ") {
+            if (num == "FuH") {
+                cout << "Already used. Try again";
+                getline(cin, enter);
+                chooseSlot(die1, die2, die3, die4, die5, myScore,upperScore);
+            }
+        }
+        if(mySecondBoard[3] != " * "){
+            if(num == "SmS"){
+            mySecondBoard[3] = " * ";
+
+            int one = 0;
+            int two = 0;
+            int three = 0;
+            int four = 0;
+            int five = 0;
+            int six = 0;
+
+            if(die1 == 1){
+                one = one + 1;
+            }
+            if(die2 == 1){
+                one = one + 1;
+            }
+            if(die3 == 1){
+                one = one + 1;
+            }
+            if(die4 == 1){
+                one = one + 1;
+            }
+            if(die5 == 1){
+                one = one + 1;
+            }
+
+            if(die1 == 2){
+                two = two + 1;
+            }
+            if(die2 == 2){
+                two = two + 1;
+            }
+            if(die3 == 2){
+                two = two + 1;
+            }
+            if(die4 == 2){
+                two = two + 1;
+            }
+            if(die5 == 2){
+                two = two + 1;
+            }
+
+            if(die1 == 3){
+                three = three + 1;
+            }
+            if(die2 == 3){
+                three = three + 1;
+            }
+            if(die3 == 3){
+                three = three + 1;
+            }
+            if(die4 == 3){
+                three = three + 1;
+            }
+            if(die5 == 3){
+                three = three + 1;
+            }
+
+            if(die1 == 4){
+                ++four;
+            }
+            if(die2 == 4){
+                ++four;
+            }
+            if(die3 == 4){
+                ++four;
+            }
+            if(die4 == 4){
+                ++four;
+            }
+            if(die5 == 4){
+                ++four;
+            }
+
+            if(die1 == 5){
+                ++five;
+            }
+            if(die2 == 5){
+                ++five;
+            }
+            if(die3 == 5){
+                ++five;
+            }
+            if(die4 == 5){
+                ++five;
+            }
+            if(die5 == 5){
+                ++five;
+            }
+
+            if(die1 == 6){
+                ++six;
+            }
+            if(die2 == 6){
+                ++six;
+            }
+            if(die3 == 6){
+                ++six;
+            }
+            if(die4 == 6){
+                ++six;
+            }
+            if(die5 == 6){
+                ++six;
+            }
+
+            if(one >= 1 && two >= 1 && three >= 1 && four >= 1){
+                myScore = myScore + 30;
+            }
+            else if(two >= 1 && three >= 1 && four >= 1 && five >= 1){
+                myScore = myScore + 30;
+            }
+            else if(three >= 1 && four >= 1 && five >= 1 && six >= 1){
+                myScore = myScore + 30;
+            }
+
+        }
+        }else if(mySecondBoard[3] == " * ") {
+            if (num == "SmS") {
+                cout << "Already used. Try again";
+                getline(cin, enter);
+                chooseSlot(die1, die2, die3, die4, die5, myScore,upperScore);
+            }
+        }
+        if(mySecondBoard[4] != " * "){
+        if(num == "LaS"){
+            mySecondBoard[4] = " * ";
+
+            int one = 0;
+            int two = 0;
+            int three = 0;
+            int four = 0;
+            int five = 0;
+            int six = 0;
+
+            if(die1 == 1){
+                one = one + 1;
+            }
+            if(die2 == 1){
+                one = one + 1;
+            }
+            if(die3 == 1){
+                one = one + 1;
+            }
+            if(die4 == 1){
+                one = one + 1;
+            }
+            if(die5 == 1){
+                one = one + 1;
+            }
+
+            if(die1 == 2){
+                two = two + 1;
+            }
+            if(die2 == 2){
+                two = two + 1;
+            }
+            if(die3 == 2){
+                two = two + 1;
+            }
+            if(die4 == 2){
+                two = two + 1;
+            }
+            if(die5 == 2){
+                two = two + 1;
+            }
+
+            if(die1 == 3){
+                three = three + 1;
+            }
+            if(die2 == 3){
+                three = three + 1;
+            }
+            if(die3 == 3){
+                three = three + 1;
+            }
+            if(die4 == 3){
+                three = three + 1;
+            }
+            if(die5 == 3){
+                three = three + 1;
+            }
+
+            if(die1 == 4){
+                ++four;
+            }
+            if(die2 == 4){
+                ++four;
+            }
+            if(die3 == 4){
+                ++four;
+            }
+            if(die4 == 4){
+                ++four;
+            }
+            if(die5 == 4){
+                ++four;
+            }
+
+            if(die1 == 5){
+                ++five;
+            }
+            if(die2 == 5){
+                ++five;
+            }
+            if(die3 == 5){
+                ++five;
+            }
+            if(die4 == 5){
+                ++five;
+            }
+            if(die5 == 5){
+                ++five;
+            }
+
+            if(die1 == 6){
+                ++six;
+            }
+            if(die2 == 6){
+                ++six;
+            }
+            if(die3 == 6){
+                ++six;
+            }
+            if(die4 == 6){
+                ++six;
+            }
+            if(die5 == 6){
+                ++six;
+            }
+
+            if(one == 1 && two == 1 && three == 1 && four == 1 && five == 1){
+                myScore = myScore + 40;
+            }
+            else if(two == 1 && three == 1 && four == 1 && five == 1 && six == 1){
+                myScore = myScore + 40;
+            }
+
+        }
+        }else if(mySecondBoard[4] == " * ") {
+            if (num == "LaS") {
+                cout << "Already used. Try again";
+                getline(cin, enter);
+                chooseSlot(die1, die2, die3, die4, die5, myScore,upperScore);
+            }
+        }
+        if(mySecondBoard[5] != " * ") {
+            if (num == "CHa") {
+                mySecondBoard[5] = " * ";
+                myScore = myScore + die1 + die2 + die3 + die4 + die5;
+            }
+        }else if(mySecondBoard[5] == " * ") {
+            if (num == "CHa") {
+                cout << "Already used. Try again";
+                getline(cin, enter);
+                chooseSlot(die1, die2, die3, die4, die5, myScore,upperScore);
+            }
+        }
+        if(mySecondBoard[6] != " * " && mySecondBoard[6] != " - "){
+            if(num == "Yahtzee"){
+                myScore = myScore + 0;
+                mySecondBoard[6] = " - ";
+            }
+        }else if(mySecondBoard[6] == " * " || mySecondBoard[6] == " - ") {
+            if (num == "Yahtzee") {
+                cout << "Already used. Try again";
+                getline(cin, enter);
+                chooseSlot(die1, die2, die3, die4, die5, myScore, upperScore);
+            }
+        }
+
+        if(!bonus) {
+            if (myBoard[0] == " * " && myBoard[1] == " * " && myBoard[2] == " * " && myBoard[3] == " * " &&
+                myBoard[4] == " * " && myBoard[5] == " * ") {
+                if (upperScore >= 63) {
+                    cout << "You get bonus points!";
+                    cout << endl;
+                    cout << ">";
+                    getline(cin, enter);
+
+                    myScore = myScore + 35;
+                    bonus = true;
+                }
+            }
+        }
+
+    }
+    void print(){
+
+        int i;
+
+        cout << "+-------+-------+-------+-------+-------+-------+";
+        cout << endl;
+        cout << "+  ";
+        for(i = 0; i < 6; ++i){
+            if(i == 5){
+                cout << myBoard[i] << "  +";
+            }else{
+                cout << myBoard[i] << "  +  ";
+            }
+        }
+        cout << endl;
+        cout << "+-------+-------+-------+-------+-------+-------+";
+        cout << endl;
+
+        cout << "+  ";
+        for(i = 0; i < 7; ++i){
+
+            if(i == 6){
+                cout << mySecondBoard[i] << "  +";
+            }else {
+                cout << mySecondBoard[i] << "  +  ";
+            }
+        }
+        cout << endl;
+        cout << "+-------+-------+-------+-------+-------+-------+";
+        cout << endl;
+    }
+
+};
+
+#endif //YAHTZEE_GRAPHICS_H
